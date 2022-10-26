@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+spec:
+  type: ClusterIP
+  ports:
+    - name: "myservice"
+      port: 5000
+  selector:
+    app: myservice
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myservice
+  annotations:
+    dev.okteto.com/generate-host: myservice
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: myservice
+                port:
+                  number: 5000
+            path: /
+            pathType: ImplementationSpecific

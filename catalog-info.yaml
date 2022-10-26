@@ -1,0 +1,84 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: "myservice"
+  description: "MyService"
+  tags:
+    - api
+    - rest
+    - aspnet
+  annotations:
+    github.com/project-slug: gianfragolo/MyService
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: myservice
+    backstage.io/kubernetes-namespace: lucamilan
+  links:
+    - url: https://github.com/gianfragolo/MyService
+      title: Github Repo
+      icon: github
+    - url: https://hub.docker.com/repository/docker/lucamilan/myservice
+      title: Dockerhub
+      icon: docker
+    - url: https://cloud.okteto.com/#/spaces/lucamilan
+      title: Okteto Platform
+      icon: cloud      
+    - url: https://myservice-lucamilan.cloud.okteto.net/swagger
+      title: Swagger
+      icon: code
+    - url: https://myservice-lucamilan.cloud.okteto.net/swagger/v1/swagger.json
+      title: API Spec
+      icon: code
+spec:
+  type: openapi
+  owner: group:backend-api
+  system: system:application-services
+  lifecycle: experimental
+  # definition:
+  #   $text: https://myservice-lucamilan.cloud.okteto.net/swagger/v1/swagger.json
+  definition: |
+    {
+    "openapi": "3.0.1",
+    "info": {
+      "title": "MyService",
+      "version": "1.0"
+    },
+    "servers": [
+      {
+      "url": "https://myservice-lucamilan.cloud.okteto.net/",
+      "description": "Okteto-Development"
+      }
+    ],
+    "paths": {
+      "/Rest": {
+        "get": {
+          "tags": [
+            "Rest"
+          ],
+          "operationId": "Get",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": { }
+    }
